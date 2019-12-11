@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,6 +37,7 @@ Member member;
                 member.setDouble2(Double2);
                 reff.push().setValue(member);
 
+                Toast.makeText(MainActivity.this,"登録しました",Toast.LENGTH_LONG).show();
             }
         });
     }
