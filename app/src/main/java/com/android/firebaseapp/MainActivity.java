@@ -1,20 +1,12 @@
 package com.android.firebaseapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 EditText editTextName,editText01,editText02;
@@ -41,7 +33,6 @@ Member member;
                 member.setName(editTextName.getText().toString().trim());
                 member.setDouble1(Double1);
                 member.setDouble2(Double2);
-
                 reff.push().setValue(member);
 
             }
