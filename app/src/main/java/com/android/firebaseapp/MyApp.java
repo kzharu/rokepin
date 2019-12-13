@@ -5,8 +5,8 @@ import android.app.Application;
 
 public class MyApp extends Application {
 
-    private Double testDouble = 36.56248397073886;
-    private Double testDouble1 = 139.88580666482449;
+    private Double testDouble = 36.5608189;
+    private Double testDouble1 = 139.8757269;
 
     @Override
     public void onCreate() {

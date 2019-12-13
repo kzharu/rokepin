@@ -4,8 +4,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,15 +48,15 @@ public class testmap extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        Double i = getIntent().getDoubleExtra("latitude_1",36.56248397073886139);
-        Double k = getIntent().getDoubleExtra("longitude_1",139.88580666482449);
+        Double i = getIntent().getDoubleExtra("latitude_1",36.5608226);
+        Double k = getIntent().getDoubleExtra("longitude_1",139.8757256);
         final MyApp myApp = (MyApp) this.getApplication();
 
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng NOW = new LatLng(i, k);
-        final Marker[] marker = {mMap.addMarker(new MarkerOptions().position(NOW).title("現在地"))};
+        final Marker[] marker = {mMap.addMarker(new MarkerOptions().position(NOW).title("現在地").snippet("薄文字（説明欄など）"))};
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(NOW, 16));
 
 // 長押しのリスナーをセット

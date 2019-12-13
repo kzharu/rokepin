@@ -12,12 +12,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ReadMap extends FragmentActivity implements OnMapReadyCallback {
     DatabaseReference reff;
-  // long maxid = 0;
     int ster = 1;
 
 
@@ -62,8 +55,8 @@ public class ReadMap extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         long counti = getIntent().getLongExtra("count",0);
-        Double i = getIntent().getDoubleExtra("latitude_1",36.56248397073886139);
-        Double k = getIntent().getDoubleExtra("longitude_1",139.88580666482449);
+        Double i = getIntent().getDoubleExtra("latitude_1",36.5608226);
+        Double k = getIntent().getDoubleExtra("longitude_1",139.8757256);
 
         mMap = googleMap;
         LatLng gen =new LatLng(i,k);
