@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,9 +31,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".ReadMap"
+            android:label="@string/title_activity_read_map"></activity>
+        <activity
             android:name=".testmap"
-            android:label="@string/title_activity_testmap"></activity>
-        <activity android:name=".ReadActivity"></activity>
+            android:label="@string/title_activity_testmap" />
+        <activity android:name=".ReadActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

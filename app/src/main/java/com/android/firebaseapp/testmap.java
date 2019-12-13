@@ -2,30 +2,25 @@ package com.android.firebaseapp;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class testmap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    DatabaseReference reff;
 
-    String a = "-Lvm_Wbq_JUqBeFadkTx";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +30,12 @@ public class testmap extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
     }
+
+
 
 
     /**
@@ -49,31 +49,49 @@ public class testmap extends FragmentActivity implements OnMapReadyCallback {
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        Double i = getIntent().getDoubleExtra("latitude_1",36.56248397073886139);
+        Double k = getIntent().getDoubleExtra("longitude_1",139.88580666482449);
+        final MyApp myApp = (MyApp) this.getApplication();
+
         mMap = googleMap;
 
+        // Add a marker in Sydney and move the camera
+        LatLng NOW = new LatLng(i, k);
+        final Marker[] marker = {mMap.addMarker(new MarkerOptions().position(NOW).title("現在地"))};
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(NOW, 16));
 
-        reff= FirebaseDatabase.getInstance().getReference().child("Member").child(a);
-        reff.addValueEventListener(new ValueEventListener() {
+// 長押しのリスナーをセット
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Double関数でのデータベースからの抜き出し
-                Double id = (Double) dataSnapshot.child("double1").getValue();
-                Double ki =(Double) dataSnapshot.child("double2").getValue();
+            public void onMapLongClick(LatLng longpushLocation) {
 
 
 
-            }
+                marker[0].remove();
+                LatLng newlocation = new LatLng(longpushLocation.latitude, longpushLocation.longitude);
+                double id = longpushLocation.latitude;
+                double kd = longpushLocation.longitude;
+                marker[0] = mMap.addMarker(new MarkerOptions().position(newlocation).title("緯度:" + longpushLocation.latitude + " 経度:" + longpushLocation.longitude));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlocation, 16));
+                double text = id;
+                double text2 = kd;
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                myApp.setDouble(id);
+                myApp.setDouble1(kd);
+
+
+
+                Toast toast = Toast.makeText(testmap.this, String.format("緯度：%f", text) + String.format("　経度：%f", text2), Toast.LENGTH_LONG);
+                toast.show();
 
             }
         });
 
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
     }
+
+
+
 }
