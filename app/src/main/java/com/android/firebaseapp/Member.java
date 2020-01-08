@@ -1,11 +1,22 @@
 package com.android.firebaseapp;
 
+import android.widget.EditText;
+
 public class Member {
     private String Name;
-    private Double Double1;
-    private Double Double2;
+    private String Category;
+    private Double Longitude;
+    private Double Latitude;
 
     public Member() {
+    }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String Cate) {
+        Category = Cate;
     }
 
     public String getName() {
@@ -17,19 +28,22 @@ public class Member {
     }
 
 
-    public void setDouble1(Double double1) {
-        Double1 = double1;
+    public void setLongitude(Double Longi) {
+        Longitude = Longi;
     }
 
-    public  Double getDouble1(){
-        return Double1;
+    public  Double getLongitude(){
+        return Longitude;
     }
 
-    public void setDouble2(Double double2) {
-        Double2 = double2;
+    public void setLatitude(Double Lati) {
+        Latitude = Lati;
     }
 
-    public Double getDouble2(){
-        return Double2;
+    public Double getLatitude(){
+        return Latitude;
+    }
+
+    public void setString(EditText editTextName2) {
     }
 }

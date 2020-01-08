@@ -29,16 +29,12 @@ public class ReadMap extends FragmentActivity implements OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       final MyApp myApp = (MyApp) this.getApplication();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
 
     }
 
@@ -57,26 +53,31 @@ public class ReadMap extends FragmentActivity implements OnMapReadyCallback {
         long counti = getIntent().getLongExtra("count",0);
         Double i = getIntent().getDoubleExtra("latitude_1",36.5608226);
         Double k = getIntent().getDoubleExtra("longitude_1",139.8757256);
+        final String g = getIntent().getStringExtra("gen");
 
         mMap = googleMap;
         LatLng gen =new LatLng(i,k);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gen, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gen, 19));
 
 
 
-        while (ster != counti) {
-            reff = FirebaseDatabase.getInstance().getReference().child("トイレ").child(String.valueOf(ster));
+        while (ster != counti +1) {
+            reff = FirebaseDatabase.getInstance().getReference().child("Location").child(String.valueOf(ster));
             reff.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     //Double関数でのデータベースからの抜き出し
-                    Double id = (Double) dataSnapshot.child("double1").getValue();
-                    Double kd = (Double) dataSnapshot.child("double2").getValue();
-                    String name=dataSnapshot.child("name").getValue().toString();
+
+                        Double id = (Double) dataSnapshot.child("longitude").getValue();
+                        Double kd = (Double) dataSnapshot.child("latitude").getValue();
+                        String name = dataSnapshot.child("name").getValue().toString();
+                        String name2 = dataSnapshot.child("category").getValue().toString();
 
 
-                    LatLng zh = new LatLng(id, kd);
-                    mMap.addMarker(new MarkerOptions().position(zh).title(name));
+                    if(name2.equals(g)) {
+                        LatLng zh = new LatLng(id, kd);
+                        mMap.addMarker(new MarkerOptions().position(zh).title(name));
+                    }
                 }
 
 

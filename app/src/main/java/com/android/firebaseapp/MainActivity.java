@@ -26,6 +26,9 @@ import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity {
 EditText editTextName;
+EditText editTextName2;
+
+
 Button button1;
 DatabaseReference reff;
 Member member;
@@ -38,9 +41,10 @@ long maxid = 0;
         super.onCreate(savedInstanceStage);
         setContentView(R.layout.activity_main);
         editTextName=(EditText)findViewById(R.id.editTextName);
+        editTextName2=(EditText)findViewById(R.id.editTextName2);
         button1=(Button)findViewById(R.id.button1);
         member=new Member();
-        reff= FirebaseDatabase.getInstance().getReference().child("トイレ");
+        reff= FirebaseDatabase.getInstance().getReference().child("Location");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -59,12 +63,15 @@ long maxid = 0;
             public void onClick(View view) {
 
 
+
+
                 double id = myApp.getDouble();
                 double kd = myApp1.getDouble1();
 
                 member.setName(editTextName.getText().toString().trim());
-                member.setDouble1(id);
-                member.setDouble2(kd);
+                member.setCategory(editTextName2.getText().toString().trim());
+                member.setLongitude(id);
+                member.setLatitude(kd);
                 //今はいらない　reff.push().setValue(member);
                 reff.child(String.valueOf(maxid+1)).setValue(member);
 
@@ -94,6 +101,7 @@ long maxid = 0;
                 intent.putExtra("latitude_1", _latitude);
                 intent.putExtra("longitude_1", _longitude);
                 intent.putExtra("count",maxid);
+                intent.putExtra("gen",(editTextName2.getText().toString()));
                 startActivity(intent);
             }
         });
